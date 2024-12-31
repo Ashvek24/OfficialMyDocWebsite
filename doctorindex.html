@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyDoc - Doctor Portal</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f8fb;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 1.8rem;
+            margin-left: 10px;
+            font-weight: bold;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        header h1:hover {
+            transform: scale(1.05);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        nav ul li a:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .hero {
+            text-align: center;
+            background: linear-gradient(rgba(0, 123, 255, 0.8), rgba(0, 123, 255, 0.699)),
+                url('https://via.placeholder.com/1920x600') no-repeat center/cover;
+            color: white;
+            padding: 80px 20px;
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .hero h2 {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+        }
+
+        .hero button {
+            padding: 10px 20px;
+            background: white;
+            color: #007bff;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+        }
+
+        .hero button:hover {
+            background: #0056b3;
+            color: white;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        .container h2 {
+            text-align: center;
+            font-size: 2rem;
+            color: #007bff;
+            margin-bottom: 30px;
+            animation: slideIn 1.5s ease-in-out;
+        }
+
+        .services {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .service {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 280px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        .service:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .service img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .service:hover img {
+            transform: rotate(15deg);
+        }
+
+        .service h3 {
+            margin-bottom: 10px;
+            font-size: 1.5rem;
+            color: #007bff;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .service:hover h3 {
+            color: #ffdd57;
+        }
+
+        .service p {
+            font-size: 1rem;
+        }
+
+        footer {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        footer p {
+            margin: 5px 0;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideIn {
+            0% {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            100% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .hero {
+                padding: 60px 20px;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .services {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .service {
+                width: 100%;
+                max-width: 320px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>MyDoc Doctor Portal</h1>
+        <nav>
+            <ul>
+                <li><a href="#patients">Patients</a></li>
+                <li><a href="view.html">Appointments</a></li>
+                <li><a href="#profile">Profile</a></li>
+                <li><a href="logout.html">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h2>Welcome, Doctor!</h2>
+        <p>Manage your appointments, interact with patients, and keep your profile up to date.</p>
+        <button onclick="window.location.href='view.html'">View Appointments</button>
+    </section>
+
+    <div class="container">
+        <h2>Quick Links</h2>
+        <div class="services">
+            <div class="service">
+                <img src="https://img.icons8.com/ios/100/000000/appointment-reminders.png" alt="Appointments">
+                <h3>Appointments</h3>
+                <p>View and manage your upcoming appointments.</p>
+            </div>
+            <div class="service">
+                <img src="https://th.bing.com/th?id=OIP.l-_M49n2kNuwD8cADnftQAHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&dpr=1.1&pid=3.1&rm=2" alt="Patients">
+                <h3>Patients</h3>
+                <p>Review and manage patient records and history.</p>
+            </div>
+            <div class="service">
+                <img src="https://th.bing.com/th?id=OIP.bJpr9jpclIkXQT-hkkb1KQHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&dpr=1.1&pid=3.1&rm=2" alt="Profile">
+                <h3>Profile</h3>
+                <p>Update your profile and credentials to attract more patients.</p>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 MyDoc. All rights reserved.</p>
+        <p>Designed with ❤️ for healthcare professionals.</p>
+    </footer>
+</body>
+
+</html>

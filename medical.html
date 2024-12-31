@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Medical Records - MyDoc</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            background-color: #f4f8fb;
+            color: #333;
+            overflow-x: hidden;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        header .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            animation: fadeInLeft 1s ease;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            gap: 1.5rem;
+            animation: fadeInRight 1s ease;
+        }
+
+        header nav ul li a {
+            text-decoration: none;
+            color: white;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        header nav ul li a:hover {
+            background-color: white;
+            color: #007bff;
+            transform: scale(1.1);
+        }
+
+        /* Medical Records Section */
+        .medical-section {
+            padding: 4rem 2rem;
+            text-align: center;
+            animation: fadeInUp 1s ease;
+        }
+
+        .medical-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 1s forwards;
+            animation-delay: 0.5s;
+        }
+
+        .medical-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .medical-form input,
+        .medical-form textarea {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            transition: border-color 0.3s ease;
+        }
+
+        .medical-form input:focus,
+        .medical-form textarea:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+
+        .medical-form button {
+            width: 100%;
+            padding: 0.8rem;
+            background-color: #007bff;
+            color: white;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .medical-form button:hover {
+            background-color: #0056b3;
+            transform: scale(1.05);
+        }
+
+        /* Records Table */
+        .records-table {
+            margin-top: 3rem;
+            width: 100%;
+            max-width: 900px;
+            margin: 3rem auto;
+            border-collapse: collapse;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease;
+            transform: translateY(20px);
+            opacity: 0;
+            animation: slideUp 1s forwards;
+            animation-delay: 1s;
+        }
+
+        .records-table th, .records-table td {
+            border: 1px solid #ddd;
+            padding: 0.8rem;
+            text-align: left;
+        }
+
+        .records-table th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .records-table tbody tr:nth-child(even) {
+            background-color: #f4f8fb;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #0056b3;
+            color: white;
+            text-align: center;
+            padding: 1.5rem 2rem;
+            animation: fadeIn 1s ease;
+        }
+
+        footer a {
+            color: white;
+            text-decoration: underline;
+            transition: text-decoration 0.3s ease;
+        }
+
+        footer a:hover {
+            text-decoration: none;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="container">
+            <div class="logo">MyDoc</div>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="book.html">Book Appointment</a></li>
+                    <li><a href="contact.html">Contact us</a></li>
+                    <li><a href="profile.html">Profile</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Medical Records Section -->
+    <div class="medical-section">
+        <h2>Manage Your Medical Records</h2>
+        <p>Store and access your medical history safely and efficiently.</p>
+
+        <!-- Medical Form -->
+        <form class="medical-form" id="medicalForm">
+            <label for="patient-name">Patient Name</label>
+            <input type="text" id="patient-name" name="name" placeholder="Enter patient name" required>
+
+            <label for="condition">Medical Condition</label>
+            <input type="text" id="condition" name="condition" placeholder="Enter medical condition" required>
+
+            <label for="date">Date of Diagnosis</label>
+            <input type="date" id="date" name="date" required>
+
+            <label for="notes">Additional Notes</label>
+            <textarea id="notes" name="notes" rows="4" placeholder="Enter any additional notes"></textarea>
+
+            <button type="button" id="saveRecord">Save Record</button>
+        </form>
+
+        <!-- Records Table -->
+        <table class="records-table" id="recordsTable">
+            <thead>
+                <tr>
+                    <th>Patient Name</th>
+                    <th>Medical Condition</th>
+                    <th>Date of Diagnosis</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Records will appear here -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <p>&copy; 2024 MyDoc - All Rights Reserved</p>
+        <a href="privacy.html">Privacy Policy</a> | <a href="terms.html">Terms of Service</a>
+    </footer>
+
+    <script>
+        const medicalForm = document.getElementById('medicalForm');
+        const recordsTable = document.getElementById('recordsTable').querySelector('tbody');
+        const saveRecordButton = document.getElementById('saveRecord');
+
+        saveRecordButton.addEventListener('click', function () {
+            const name = document.getElementById('patient-name').value;
+            const condition = document.getElementById('condition').value;
+            const date = document.getElementById('date').value;
+            const notes = document.getElementById('notes').value;
+
+            if (!name || !condition || !date) {
+                alert("Please fill in all required fields.");
+                return;
+            }
+
+            const newRow = recordsTable.insertRow();
+            newRow.innerHTML = `
+                <td>${name}</td>
+                <td>${condition}</td>
+                <td>${date}</td>
+                <td>${notes}</td>
+            `;
+
+            medicalForm.reset();
+        });
+    </script>
+</body>
+</html>

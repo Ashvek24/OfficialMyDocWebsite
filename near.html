@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Doctors Near You</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <style>
+    /* General Styles */
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f9f9f9;
+      color: #333;
+      transition: background-color 0.3s ease;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      background-color: #0056b3;
+      color: white;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    main {
+      padding: 20px;
+      max-width: 1200px;
+      margin: 20px auto;
+      border-radius: 10px;
+      background-color: white;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    button {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 16px;
+      color: white;
+      background-color: #007bff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-bottom: 20px;
+      transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+      transform: translateY(-2px);
+    }
+
+    #map {
+      height: 500px;
+      width: 100%;
+      border-radius: 5px;
+      margin-top: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+    }
+
+    .doctor-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .doctor-card {
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      padding: 15px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .doctor-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .doctor-card h3 {
+      margin: 0;
+      font-size: 20px;
+      color: #007bff;
+    }
+
+    .doctor-card p {
+      margin: 5px 0;
+      font-size: 14px;
+      color: #555;
+    }
+
+    footer {
+      text-align: center;
+      padding: 10px;
+      background-color: #0056b3;
+      color: white;
+      margin-top: 20px;
+      border-radius: 0 0 10px 10px;
+    }
+
+    footer p {
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <h1>Find Doctors Near You</h1>
+  </header>
+
+  <!-- Main Content -->
+  <main>
+    <!-- Doctor Grid -->
+    <div class="doctor-grid" id="doctor-grid">
+      <!-- Doctor cards will be dynamically added here -->
+    </div>
+
+    <!-- Map Section -->
+    <p>Click the button below to locate Doctors Near You on Map.</p>
+    <button id="find-doctors-btn">Locate</button>
+    <div id="map"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <p>Powered by OpenStreetMap & Leaflet</p>
+  </footer>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
+  <!-- Main Script -->
+  <script>
+    // Initialize Map
+    const map = L.map('map').setView([15.5938, 73.8085], 14); // AITD Assagao coordinates
+
+    // Add OpenStreetMap Tile Layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '© OpenStreetMap contributors',
+    }).addTo(map);
+
+    let userMarker; // Variable to hold the user's marker
+
+    // Add Nearby Doctors (Mock Data)
+    const doctors = [
+      { name: 'Dr. A. Fernandes', specialization: 'Cardiologist', contact: '9876543210' },
+      { name: 'Dr. B. D\'Souza', specialization: 'Dentist', contact: '9876543211' },
+      { name: 'Dr. C. Naik', specialization: 'Pediatrician', contact: '9876543212' },
+      { name: 'Dr. D. Kamat', specialization: 'Dermatologist', contact: '9876543213' },
+      { name: 'Dr. E. Sawant', specialization: 'Neurologist', contact: '9876543214' },
+      { name: 'Dr. F. Pinto', specialization: 'Orthopedic', contact: '9876543215' },
+      { name: 'Dr. G. Patil', specialization: 'ENT Specialist', contact: '9876543216' },
+      { name: 'Dr. H. Dias', specialization: 'General Physician', contact: '9876543217' },
+      { name: 'Dr. I. Lobo', specialization: 'Psychiatrist', contact: '9876543218' },
+      { name: 'Dr. J. Gauns', specialization: 'Gynecologist', contact: '9876543219' },
+      { name: 'Dr. K. Noronha', specialization: 'Surgeon', contact: '9876543220' },
+      { name: 'Dr. L. Mascarenhas', specialization: 'Oncologist', contact: '9876543221' },
+    ];
+
+    // Populate the Doctor Grid on Page Load
+    const doctorGrid = document.getElementById('doctor-grid');
+    doctors.forEach((doctor) => {
+      // Create Doctor Card
+      const card = document.createElement('div');
+      card.classList.add('doctor-card');
+      card.innerHTML = `
+        <h3>${doctor.name}</h3>
+        <p><b>Specialization:</b> ${doctor.specialization}</p>
+        <p><b>Contact:</b> ${doctor.contact}</p>
+      `;
+      doctorGrid.appendChild(card);
+    });
+
+    // Add Event Listener for Button
+    document.getElementById('find-doctors-btn').addEventListener('click', () => {
+      // Center Map on AITD Assagao
+      const latitude = 15.5938;
+      const longitude = 73.8085;
+
+      map.setView([latitude, longitude], 14);
+
+      // Add Marker for AITD Assagao
+      if (userMarker) map.removeLayer(userMarker);
+      userMarker = L.marker([latitude, longitude])
+        .addTo(map)
+        .bindPopup('AITD Assagao, Goa, India')
+        .openPopup();
+    });
+  </script>
+</body>
+</html>

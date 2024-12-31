@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctors Near You - MyDoc</title>
+    <style>
+        /* Page Layout */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7fbff;
+        }
+
+        .near-doctors {
+            padding: 3em;
+            text-align: center;
+            background-color: #ffffff;
+            border-bottom: 5px solid #007bff;
+        }
+
+        .near-doctors h2 {
+            font-size: 2.5rem;
+            margin-bottom: 2em;
+            color: #003366;
+            font-weight: bold;
+            text-transform: uppercase;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        /* Search Bar */
+        .search-bar {
+            margin-bottom: 2.5em;
+        }
+
+        .search-bar input {
+            padding: 0.75em;
+            width: 350px;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .search-bar input:focus {
+            box-shadow: 0 0 12px rgba(0, 123, 255, 0.5);
+            outline: none;
+        }
+
+        .search-bar button {
+            padding: 0.75em 1.2em;
+            margin-left: 0.5em;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .search-bar button:hover {
+            background-color: #0056b3;
+        }
+
+        /* Doctor Grid */
+        .doctor-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 3em;
+            padding: 2em;
+            align-items: stretch;
+            animation: fadeInGrid 1.2s ease-in-out;
+        }
+
+        /* Doctor Card */
+        .doctor-card {
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            padding: 2em;
+            text-align: center;
+            background-color: #ffffff;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .doctor-card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 12px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .doctor-card img {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            margin-bottom: 1.5em;
+            border: 4px solid #007bff;
+            transition: transform 0.3s ease;
+        }
+
+        .doctor-card img:hover {
+            transform: scale(1.1);
+        }
+
+        .doctor-card h3 {
+            font-size: 1.5rem;
+            margin: 1em 0;
+            color: #003366;
+            font-weight: bold;
+        }
+
+        .doctor-card p {
+            margin: 0.5em 0;
+            color: #555;
+            font-size: 1rem;
+        }
+
+        .doctor-card .btn-secondary {
+            margin-top: 1.5em;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            padding: 0.9em 2em;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .doctor-card .btn-secondary:hover {
+            background-color: #218838;
+        }
+
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeInGrid {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <section class="near-doctors">
+        <h2>Doctors Near You</h2>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search for a doctor, specialty, or location">
+            <button onclick="searchDoctors()">Search</button>
+        </div>
+        <div class="doctor-grid" id="doctorGrid">
+            <!-- Example Doctor Cards -->
+            <div class="doctor-card">
+                <img src="https://via.placeholder.com/120" alt="Doctor Photo">
+                <h3>Dr. John Doe</h3>
+                <p>Cardiologist</p>
+                <p>New York, NY</p>
+                <a href="book.html"><button class="btn-secondary">Book Appointment</button></a>
+            </div>
+            <div class="doctor-card">
+                <img src="https://via.placeholder.com/120" alt="Doctor Photo">
+                <h3>Dr. Jane Smith</h3>
+                <p>Dermatologist</p>
+                <p>San Francisco, CA</p>
+                <a href="book.html"><button class="btn-secondary">Book Appointment</button></a>
+            </div>
+            <div class="doctor-card">
+                <img src="https://via.placeholder.com/120" alt="Doctor Photo">
+                <h3>Dr. Alice Brown</h3>
+                <p>Neurologist</p>
+                <p>Boston, MA</p>
+                <a href="book.html"><button class="btn-secondary">Book Appointment</button></a>
+            </div>
+            <div class="doctor-card">
+                <img src="https://via.placeholder.com/120" alt="Doctor Photo">
+                <h3>Dr. Alice Brown</h3>
+                <p>Neurologist</p>
+                <p>Boston, MA</p>
+                <a href="book.html"><button class="btn-secondary">Book Appointment</button></a>
+            </div>
+            <div class="doctor-card">
+                <img src="https://via.placeholder.com/120" alt="Doctor Photo">
+                <h3>Dr. Alice Brown</h3>
+                <p>Neurologist</p>
+                <p>Boston, MA</p>
+                <a href="book.html"><button class="btn-secondary">Book Appointment</button></a>
+            </div>
+            <div class="doctor-card">
+                <img src="https://via.placeholder.com/120" alt="Doctor Photo">
+                <h3>Dr. Jane Smith</h3>
+                <p>Dermatologist</p>
+                <p>San Francisco, CA</p>
+                <a href="book.html"><button class="btn-secondary">Book Appointment</button></a>
+            </div>
+            <div class="doctor-card">
+                <img src="https://via.placeholder.com/120" alt="Doctor Photo">
+                <h3>Dr. Jane Smith</h3>
+                <p>Dermatologist</p>
+                <p>San Francisco, CA</p>
+                <a href="book.html"><button class="btn-secondary">Book Appointment</button></a>
+            </div>
+            <div class="doctor-card">
+                <img src="https://via.placeholder.com/120" alt="Doctor Photo">
+                <h3>Dr. Jane Smith</h3>
+                <p>Dermatologist</p>
+                <p>San Francisco, CA</p>
+                <a href="book.html"><button class="btn-secondary">Book Appointment</button></a>
+            </div>
+            
+            <!-- More Doctor Cards can be added here -->
+        </div>
+    </section>
+
+    <script>
+        // Search functionality simulation
+        function searchDoctors() {
+            const searchInput = document.getElementById("searchInput").value.toLowerCase();
+            const doctorGrid = document.getElementById("doctorGrid");
+            const doctors = doctorGrid.getElementsByClassName("doctor-card");
+
+            Array.from(doctors).forEach(doctor => {
+                const doctorName = doctor.querySelector("h3").innerText.toLowerCase();
+                const doctorSpecialty = doctor.querySelector("p").innerText.toLowerCase();
+                const doctorLocation = doctor.querySelectorAll("p")[1].innerText.toLowerCase();
+
+                if (
+                    doctorName.includes(searchInput) ||
+                    doctorSpecialty.includes(searchInput) ||
+                    doctorLocation.includes(searchInput)
+                ) {
+                    doctor.style.display = "block";
+                } else {
+                    doctor.style.display = "none";
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

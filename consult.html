@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consult Online - MyDoc</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #badef9;
+        }
+
+        header {
+            background-color: #007bff;
+            color: #fff;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Arial';
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+
+        .consult-container {
+            max-width: 800px;
+            margin: 3em auto;
+            padding: 2em;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            border: 1px solid #ddd;
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 1.5em;
+            color: #003366;
+            font-weight: bold;
+            
+        }
+
+        .consult-form label {
+            display: block;
+            margin: 1em 0 0.5em;
+            font-size: 1.1rem;
+            color: #003366;
+            font-weight: bold;
+        }
+
+        .consult-form input,
+        .consult-form textarea,
+        .consult-form select,
+        .consult-form button {
+            width: 100%;
+            padding: 0.8em;
+            font-size: 1rem;
+            margin-bottom: 1em;
+            border: 2px solid #007bff;
+            border-radius: 5px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .consult-form input:focus,
+        .consult-form textarea:focus,
+        .consult-form select:focus {
+            box-shadow: 0 0 12px rgba(0, 123, 255, 0.5);
+            outline: none;
+        }
+
+        .consult-form textarea {
+            resize: none;
+            height: 120px;
+        }
+
+        .consult-form button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .consult-form button:hover {
+            background-color: #0056b3;
+        }
+
+        .file-upload {
+            text-align: center;
+        }
+
+        .file-upload input {
+            display: inline-block;
+            width: auto;
+            padding: 0.5em 1em;
+        }
+
+        .form-footer {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        .form-footer a {
+            color: #007bff;
+            text-decoration: none;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Progress Indicator */
+        .progress {
+            display: none;
+            text-align: center;
+            margin-top: 1em;
+            color: #007bff;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">MyDoc</div>
+        
+    </header>
+
+    <div class="consult-container">
+        <h2>Consult a Doctor Online</h2>
+        <form class="consult-form">
+            <label for="doctorSelect">Choose a Doctor:</label>
+            <select id="doctorSelect" required>
+                <option value="">-- Select a Doctor --</option>
+                <option value="Dr. John Doe">Dr. John Doe (Cardiologist)</option>
+                <option value="Dr. Sarah Johnson">Dr. Sarah Johnson (Pediatrician)</option>
+                <option value="Dr. Emily Smith">Dr. Emily Smith (Dermatologist)</option>
+                <option value="Dr. James Benette">Dr. James Benette (Gynaecologist)</option>
+                <option value="Dr. Evelyn Harper">Dr. Evelyn Harper (Dentist)</option>
+                <option value="Dr. Anjali Mehta">Dr. Anjali Mehta (Neurology)</option>
+                <option value="Dr. Rohit Sharma">Dr. Rohit Sharma (Orthopaedic)</option>
+                <option value="Dr. Kabir Singh">Dr. Kabir Singh (Psychiatric)</option>
+            </select>
+
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" placeholder="Enter your full name" required>
+
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" placeholder="Enter your email" required>
+
+            <label for="issueDescription">Brief Description of Your Issue:</label>
+            <textarea id="issueDescription" placeholder="Describe your symptoms or concerns" required></textarea>
+
+            <div class="file-upload">
+                <label for="uploadFile">Upload Reports or Files (Optional):</label>
+                <input type="file" id="uploadFile" accept=".jpg, .png, .pdf, .docx">
+            </div>
+
+            <button type="submit">Submit Request</button>
+        </form>
+
+        <div class="progress" id="progress">
+            Submitting your request...
+        </div>
+
+        <div class="form-footer">
+            <p>Need help? <a href="contact.html">Contact Us</a></p>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('.consult-form').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const progress = document.getElementById('progress');
+            progress.style.display = 'block';
+
+            setTimeout(() => {
+                progress.style.display = 'none';
+                alert('Your consultation request has been submitted. The doctor will get in touch with you soon!');
+            }, 2000); // Simulate submission delay
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MyDoc - Your Health Partner</title>
+<link rel="stylesheet" href="styles.css">
+<!-- Firebase Modular SDK -->
+<script type="module">
+    // Firebase SDK for app initialization, authentication, and firestore
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js';
+    import { getAuth, createUserWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js';
+    import { getFirestore, doc, setDoc } from 'https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js';
+
+    // Your Firebase config object
+    const firebaseConfig = {
+        apiKey: "AIzaSyCdyb3Fa8F_2JZfhgHAcRDknMCy0onBgq4",
+        authDomain: "mydoc-1aa7e.firebaseapp.com",
+        projectId: "mydoc-1aa7e",
+        storageBucket: "mydoc-1aa7e.appspot.com",
+        messagingSenderId: "103320563639",
+        appId: "1:103320563639:web:38fc2f12fa8ac945704232",
+        measurementId: "G-DPHJMKERT0"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+</script>
+
+<script type="module">
+    // Get the form and input elements
+    const signupForm = document.getElementById("signup-form");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+
+    // Handle form submission to create a new user
+    signupForm.addEventListener("submit", async (e) => {
+        e.preventDefault(); // Prevent the default form behavior
+
+        const email = emailInput.value;
+        const password = passwordInput.value;
+
+        try {
+            // Create the user with email and password using Firebase Authentication
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            console.log("User created:", user);
+
+            // Optionally, store additional user data in Firestore
+            await setDoc(doc(db, "users", user.uid), {
+                email: user.email,
+                // You can add more data here like name, etc.
+            });
+            console.log("User data stored in Firestore.");
+        } catch (error) {
+            console.error("Error signing up:", error.message);
+        }
+    });
+</script>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyDoc - Your Health Partner</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Added Font Awesome CDN for social icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1 class="logo">MyDoc</h1>
+            <nav>
+                <ul id="nav-links">
+                    <!-- Update the link to scroll to the doctor-sections -->
+                    <li><a href="#doctor-sections">Services</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                   
+
+                    <!-- Login and Signup links dynamically update -->
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Your Health, Our Priority</h2>
+            <p>Book appointments with top doctors and manage your health effortlessly.</p>
+            <!-- Button for the modal -->
+            <button class="btn-primary">Book Appointment</button>
+        </div>
+    </section>
+
+    <!-- Added id "doctor-sections" to scroll to this section -->
+    <section class="doctor-sections" id="doctor-sections">
+        <div class="service-container">
+            <a href="doctor.html" class="service">
+                <img src="https://th.bing.com/th/id/OIP.A_LvD-Sukyhljg2ga0b4GgHaHZ?w=203&h=202&c=7&r=0&o=5&dpr=1.1&pid=1.7" alt="Top Doctor">
+                <h3>Our Top Doctors</h3>
+                <p>Meet the best healthcare professionals.</p>
+            </a>
+
+            <div class="service">
+                <a href="near.html">
+                <img src="https://th.bing.com/th/id/OIP.Kmt2ZxosnmX9NIMeirkSLQHaIR?w=180&h=202&c=7&r=0&o=5&dpr=1.1&pid=1.7" alt="Doctor Image">
+                <h3>Find Doctors Near You</h3>
+                <p>Find trusted doctors close to you.</p>
+            </a>
+            </div>
+
+            <div class="service">
+                <a href="consult.html">
+                <img src="https://img.icons8.com/ios/50/000000/video-call.png" alt="Online Consultation">
+                <h3>Online Consultation</h3>
+                <p>Consult with doctors online from the comfort of your home.</p>
+            </a>
+            </div>
+        </div>
+
+        <div class="service">
+            <a href="medical.html">
+            <img src="data:image/png;base64,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" alt="Doctor Image">
+            <h3>Medical Records</h3>
+            <p>Store your Medical Records</p>
+            </a>
+        </div>
+        
+
+    </section>
+
+    <section class="doctor-symbols">
+        <h2> Doctor Specialties</h2>
+        <div class="symbols-grid">
+            <div class="symbol">
+                <img src="https://th.bing.com/th?q=Tooth+Dental+Icon&w=120&h=120&c=1&rs=1&qlt=90&cb=1&dpr=1.1&pid=InlineBlock&mkt=en-IN&cc=IN&setlang=en&adlt=moderate&t=1&mw=247" alt="Dentist">
+                <p>Dentist</p>
+            </div>
+            <div class="symbol">
+                <img src="https://img.icons8.com/ios/50/000000/heart-health.png" alt="Cardiologist">
+                <p>Cardiologist</p>
+            </div>
+            <div class="symbol">
+                <img src="https://img.icons8.com/ios/50/000000/brain.png" alt="Neurologist">
+                <p>Neurologist</p>
+            </div>
+            <div class="symbol">
+                <img src="https://th.bing.com/th/id/OIP.9Y7gJvA0-1WS6V-dDJNeaAHaHa?w=192&h=192&c=7&r=0&o=5&dpr=1.1&pid=1.7" alt="General Physician">
+                <p>General Physician</p>
+            </div>
+
+            <div class="symbol">
+                <img src="https://img.icons8.com/ios/50/000000/pregnant.png" alt="Gynecologist">
+                <p>Gynecologist</p>
+            </div>
+            <div class="symbol">
+                <img src="https://img.icons8.com/ios/50/000000/pills.png" alt="Pharmacist">
+                <p>Pharmacist</p>
+            </div>
+            <div class="symbol">
+                <img src="https://img.icons8.com/ios/50/000000/stethoscope.png" alt="Surgeon">
+                <p>Surgeon</p>
+            </div>
+            <div class="symbol">
+                <img src="https://th.bing.com/th/id/OIP._a-dcenVUoCsWuhYLERMqgHaHa?w=196&h=196&c=7&r=0&o=5&dpr=1.1&pid=1.7" alt="Ophthalmologist">
+                <p>Ophthalmologist</p>
+            </div>
+
+            <div class="symbol">
+                <img src="https://img.icons8.com/ios/50/000000/therapy.png" alt="Therapist">
+                <p>Therapist</p>
+            </div>
+            <div class="symbol">
+                <img src="https://th.bing.com/th?id=OIP.OIJk-L0fKXcI9ZPv_909SwAAAA&w=250&h=250&c=8&rs=1&qlt=90&o=6&dpr=1.1&pid=3.1&rm=2" alt="Pulmonologist">
+                <p>Pulmonologist</p>
+            </div>
+            <div class="symbol">
+                <img src="https://th.bing.com/th/id/OIP.RzatZAf_7gOcU-cld0llmwHaHa?w=181&h=181&c=7&r=0&o=5&dpr=1.1&pid=1.7" alt="Dermatologist">
+                <p>Dermatologist</p>
+            </div>
+            <div class="symbol">
+                <img src="https://th.bing.com/th/id/OIP.voKYDugymcs_K0lsBGc2DQHaHa?w=188&h=188&c=7&r=0&o=5&dpr=1.1&pid=1.7" alt="Emergency Medicine">
+                <p>Emergency</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login/Signup Modal -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Login or Sign Up</h2>
+            <p>You need to log in or sign up to book an appointment.</p>
+            <div class="modal-buttons">
+                <a href="login.html" class="btn-secondary">Login</a>
+                <a href="signup.html" class="btn-primary">Sign Up</a>
+            </div>
+        </div>
+    </div>
+    <script src="firebaseConfig.js"type="module"></script> <!-- Your Firebase config file -->
+    <script src="scripts/index.js"></script> <!-- Custom script for homepage logic -->
+    
+    <script>
+        // Simulate a login status check
+        let isLoggedIn = localStorage.getItem("isLoggedIn") === "true"; // Check from localStorage
+
+        const bookAppointmentBtn = document.querySelector(".btn-primary");
+        const loginModal = document.getElementById("login-modal");
+        const closeModalBtn = document.querySelector(".close-btn");
+
+        // Check login status when "Book Appointment" is clicked
+        bookAppointmentBtn.addEventListener("click", (e) => {
+            if (!isLoggedIn) {
+                e.preventDefault(); // Prevent navigation to the booking page
+                loginModal.style.display = "block"; // Show login/signup modal
+            } else {
+                // Navigate to booking page if logged in
+                window.location.href = "book.html";
+            }
+        });
+
+        // Close modal functionality
+        closeModalBtn.addEventListener("click", () => {
+            loginModal.style.display = "none";
+        });
+
+        // Close modal on outside click
+        window.addEventListener("click", (e) => {
+            if (e.target === loginModal) {
+                loginModal.style.display = "none";
+            }
+        });
+
+        // Dynamically update navbar based on login status
+        const navLinks = document.getElementById("nav-links");
+        function updateNavbar() {
+            if (isLoggedIn) {
+                navLinks.innerHTML += ` 
+                    <li><a href="profile.html" class="btn-profile">Profile</a></li>
+                    <li><a href="#" class="btn-logout">Logout</a></li>
+                `;
+            } else {
+                navLinks.innerHTML += ` 
+                    <li><a href="option.html" class="btn-login">Login</a></li>
+                    <li><a href="signup.html" class="btn-signup">Signup</a></li>
+                `;
+            }
+        }
+
+        updateNavbar();
+
+        // Logout functionality
+        document.addEventListener("click", (e) => {
+            if (e.target.classList.contains("btn-logout")) {
+                e.preventDefault();
+                localStorage.removeItem("isLoggedIn");
+                window.location.href = "index.html";
+            }
+        });
+    </script>
+
+    <footer>
+        <p>&copy; 2024 Mydoc. All rights reserved.</p>
+        <ul class="social-icons">
+            <li><a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+         <a href="#"><i class="fab fa-instagram"></i></a></li>
+        </ul>
+    </footer>
+</body>
+
+</html>
